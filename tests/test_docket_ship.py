@@ -163,6 +163,25 @@ class ProjectTest(unittest.TestCase):
         code, out = self.check()
         self.assertEqual(code, 0, out)
 
+    def test_from_finds_the_project_and_fix_rewrites_the_index(self):
+        self.spec("Text.")  # the index is now stale
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            code = ds.main(["--from", str(self.root / "docs/spec/orders.md"), "check", "--fix"])
+        self.assertEqual(code, 0, out.getvalue())
+        self.assertIn("0 errors", out.getvalue())
+
+    def test_outside_a_project_exits_3(self):
+        empty = Path(tempfile.mkdtemp())
+        try:
+            err = io.StringIO()
+            with contextlib.redirect_stderr(err):
+                code = ds.main(["--from", str(empty), "check"])
+            self.assertEqual(code, 3)
+            self.assertIn("no docket-ship.cfg", err.getvalue())
+        finally:
+            shutil.rmtree(empty, ignore_errors=True)
+
     def test_stale_index_is_an_error(self):
         self.spec("Text.")
         code, out = run(self.root, "check")

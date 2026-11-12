@@ -763,6 +763,8 @@ def fail(message: str) -> int:
 
 
 def cmd_check(project: Project, args) -> int:
+    if args.fix:
+        write_index(project)
     issues = check(project)
     for issue in issues:
         print("%s:%d: %s: %s" % (project.rel(issue.path), issue.line, issue.level, issue.message))
@@ -777,11 +779,14 @@ def cmd_check(project: Project, args) -> int:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="docket-ship", description=__doc__.split("\n")[0])
     parser.add_argument("--root", help="project root (default: nearest folder with docket-ship.cfg)")
+    parser.add_argument("--from", dest="start", metavar="PATH",
+                        help="find the project root from this file or folder instead of the cwd")
     parser.add_argument("--version", action="version", version="docket-ship " + VERSION)
     sub = parser.add_subparsers(dest="command", required=True)
 
     p = sub.add_parser("check", help="validate docs")
     p.add_argument("--strict", action="store_true", help="fail on warnings too")
+    p.add_argument("--fix", action="store_true", help="regenerate docs/INDEX.md first")
     sub.add_parser("index", help="regenerate docs/INDEX.md")
 
     p = sub.add_parser("new", help="create a decision, ticket or spec")
@@ -818,9 +823,17 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     if args.command == "init":
         return cmd_init(Path(args.root or ".").resolve(), args)
-    root = Path(args.root).resolve() if args.root else find_root(Path.cwd())
+    if args.root:
+        root: Optional[Path] = Path(args.root).resolve()
+    else:
+        start = Path(args.start).resolve() if args.start else Path.cwd()
+        root = find_root(start if start.is_dir() else start.parent)
     if root is None or not (root / CONFIG).exists():
-        return fail("no %s found here or above; run: docket-ship init" % CONFIG)
+        # Exit code 3 means "not a docket-ship project", so callers such as the
+        # plugin's hook can stay silent instead of reporting an error.
+        print("docket-ship: no %s found here or above; run: docket-ship init" % CONFIG,
+              file=sys.stderr)
+        return 3
     project = Project(root)
     if args.command == "index":
         print("wrote %s" % project.rel(write_index(project)))

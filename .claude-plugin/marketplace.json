@@ -1,0 +1,6 @@
+{
+  "name": "docket-ship",
+  "description": "docket-ship: project docs as specs, decisions and tickets, checked by a stdlib Python script.",
+  "owner": { "name": "tralk331" },
+  "plugins": [{ "name": "docket-ship", "source": "./" }]
+}

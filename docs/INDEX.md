@@ -6,6 +6,7 @@
 
 - [checks](spec/checks.md) · active · What docket-ship check verifies — Every rule docket-ship check enforces, with its level; errors fail the run. · open: T-0003, T-0005, T-0006
 - [distribution](spec/distribution.md) · active · How docket-ship is packaged and installed — One Python file plus CONVENTIONS.md; projects keep a copy of the conventions and a docket-ship.cfg. · open: T-0001, T-0004
+- [plugin](spec/plugin.md) · active · The Claude Code plugin — Four skills (decide, ticket, docs-audit, docs-migrate) and a hook that checks docs after every edit. · open: T-0008
 
 ## Decisions
 
@@ -15,14 +16,17 @@
 - [D-0004](decisions/D-0004-specs-describe-the-accepted-design-build-status.md) · accepted · 2026-11-12 — Specs describe the accepted design; build status lives in tickets · affects: checks
 - [D-0005](decisions/D-0005-copy-the-conventions-into-each-project-and-warn.md) · accepted · 2026-11-12 — Copy the conventions into each project and warn on drift · affects: distribution, checks
 - [D-0006](decisions/D-0006-rename-the-tool-to-docket-ship.md) · accepted · 2026-11-12 — Rename the tool to docket-ship · affects: distribution
+- [D-0007](decisions/D-0007-ship-the-claude-code-plugin-from-the-tool-s-own.md) · accepted · 2026-11-12 — Ship the Claude Code plugin from the tool's own repo · affects: plugin, distribution
+- [D-0008](decisions/D-0008-check-docs-automatically-after-every-doc-edit.md) · accepted · 2026-11-12 — Check docs automatically after every doc edit · affects: plugin
 
 ## Open tickets
 
-- [T-0001](work/T-0001-claude-code-plugin-with-docs-skills.md) · open · Claude Code plugin with docs skills · specs: distribution · blocked by: T-0002
+- [T-0001](work/T-0001-claude-code-plugin-with-docs-skills.md) · doing · Claude Code plugin with docs skills · specs: distribution · blocked by: T-0002
 - [T-0003](work/T-0003-warn-when-an-accepted-decision-is-edited.md) · open · Warn when an accepted decision is edited · specs: checks
 - [T-0004](work/T-0004-install-docket-for-use-outside-claude-code.md) · open · Install docket-ship for use outside Claude Code · specs: distribution
 - [T-0005](work/T-0005-support-decisions-migrated-without-a-known-date.md) · open · Support decisions migrated without a known date · specs: checks
 - [T-0006](work/T-0006-check-references-from-code-into-docs.md) · open · Check references from code into docs · specs: checks
 - [T-0007](work/T-0007-decide-where-project-wide-coding-rules-live.md) · open · Decide where project-wide coding rules live
+- [T-0008](work/T-0008-test-the-plugin-live-in-a-claude-code-session.md) · open · Test the plugin live in a Claude Code session · specs: plugin
 
 1 closed (`docket-ship list tickets --status done`).

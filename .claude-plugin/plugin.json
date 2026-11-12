@@ -1,0 +1,6 @@
+{
+  "name": "docket-ship",
+  "version": "0.1.0",
+  "description": "Specs, decisions and tickets that stay consistent: skills to record decisions, manage tickets, audit and migrate docs, and a check after every doc edit.",
+  "author": { "name": "tralk331" }
+}

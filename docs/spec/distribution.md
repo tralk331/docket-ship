@@ -27,3 +27,11 @@ as `python docket_ship.py`, `python3` or `py -3`.
 
 The project's `AGENTS.md` or `CLAUDE.md` gets a short section pointing at
 `docs/CONVENTIONS.md` and `docs/INDEX.md`. `init` prints that section.
+
+## As a Claude Code plugin [D-0007]
+
+```
+/plugin install docket-ship --marketplace tralk331/docket-ship
+```
+
+See [plugin](./plugin.md) for what it adds.

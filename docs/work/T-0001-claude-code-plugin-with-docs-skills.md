@@ -2,7 +2,7 @@
 id: T-0001
 type: ticket
 title: Claude Code plugin with docs skills
-status: open
+status: doing
 summary: Package docket-ship as a user-level Claude Code plugin with skills that apply the workflow.
 specs: [distribution]
 decisions: []

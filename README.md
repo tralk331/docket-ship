@@ -9,6 +9,18 @@ checker verifies.
   agents read, and `init` copies it into each project.
 - **This tool's own docs**, written in that format: [docs/INDEX.md](docs/INDEX.md)
 
+## Install in Claude Code
+
+```
+/plugin install docket-ship --marketplace tralk331/docket-ship
+```
+
+Answer `y` to add the marketplace, then pick a scope (user scope makes it
+available in every project). This adds four skills (`/decide`, `/ticket`,
+`/docs-audit`, `/docs-migrate`) and a hook that runs `check` after every edit to
+a doc, telling Claude only when something is wrong. See
+[docs/spec/plugin.md](docs/spec/plugin.md).
+
 ## Requirements
 
 Python 3.8 or newer. Nothing else.
@@ -29,4 +41,5 @@ Windows, use `python` or `py -3` if `python3` isn't available.
 ```sh
 python -m unittest discover -s tests
 python docket_ship.py check                   # docket-ship's own docs
+claude plugin validate .                      # the plugin manifest and hook
 ```
